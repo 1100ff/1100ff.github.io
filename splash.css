@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Контейнер, который держит всё строго по вертикали по центру */
+.splash-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Отступы между элементами */
+}
+
+/* Кнопка ENTR сверху */
+.enter-link {
+    color: #555555; /* Темно-серый, невзрачный цвет */
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.enter-link:hover {
+    color: #ffffff; /* При наведении плавно белеет */
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Блок для GIF */
+.gif-block {
+    width: 450px; /* Можно настроить ширину под твою гифку */
+    height: 280px; /* И высоту */
+    background-color: #050505; /* Тонкая подложка, пока гифка грузится */
+    border: 1px solid #111111; /* Едва заметная глазу рамка */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gif-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Чтобы гифка аккуратно заполняла рамку */
+    filter: grayscale(100%); /* Делает её строго чб */
+}
+
+/* Маленький невзрачный текст внизу */
+.bottom-text {
+    color: #333333; /* Очень темный серый цвет, почти сливается с фоном */
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.4;
+}
