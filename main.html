@@ -3,43 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1100ff / архив</title>
+    <title>1100ff / узел</title>
     <link rel="stylesheet" href="main_style.css">
 </head>
 <body>
 
-    <div class="center-container">
-        
-        <a href="#gallery" class="corner-menu top-left">gallery</a>
-        <a href="#me" class="corner-menu top-right">me</a>
-        <a href="#journal" class="corner-menu bottom-left">journal</a>
-        <a href="#secret" class="corner-menu bottom-right">???</a>
+    <a href="#gallery" class="corner-menu top-left">gallery</a>
+    <a href="#me" class="corner-menu top-right">me</a>
+    <a href="#journal" class="corner-menu bottom-left">journal</a>
+    <a href="#secret" class="corner-menu bottom-right">???</a>
 
+
+    <div class="center-container">
         <div class="eye-tracker" id="tracker">
             <img src="eyes.png" alt="" class="eyes" id="eyes">
             <img src="face.png" alt="" class="face">
-            <div style="color: #444; text-align: center; padding-top: 120px; font-family: monospace;">
-                [ место для face.png и eyes.png ]
+        </div>
+    </div>
+
+
+    <section id="gallery" class="gallery-section">
+        <h2>[ art_archive ]</h2>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openFull(this)">
+                <img src="art1.png" alt="Мой арт">
+            </div>
+            <div class="gallery-item" onclick="openFull(this)">
+                <img src="art2.png" alt="">
+            </div>
+            <div class="gallery-item" onclick="openFull(this)">
+                <img src="art3.png" alt="">
+            </div>
+            <div class="gallery-item" onclick="openFull(this)">
+                <img src="art4.png" alt="">
             </div>
         </div>
+    </section>
 
+
+    <div id="fullScreenModal" class="modal" onclick="closeFull()">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="fullImg">
     </div>
+
 
     <script>
         const tracker = document.getElementById('tracker');
         const eyes = document.getElementById('eyes');
 
+        // Код слежения за курсором
         document.addEventListener('mousemove', (e) => {
             if (!tracker || !eyes) return;
+
             const rect = tracker.getBoundingClientRect();
             const trackerX = rect.left + rect.width / 2;
             const trackerY = rect.top + rect.height / 2;
+
             const angle = Math.atan2(e.clientY - trackerY, e.clientX - trackerX);
-            const distance = 8; 
+            const distance = 8; // На сколько пикселей зрачки могут сдвигаться
+
             const x = Math.cos(angle) * distance;
             const y = Math.sin(angle) * distance;
+
             eyes.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         });
+
+        // Код для открытия картинок во весь экран
+        function openFull(element) {
+            const modal = document.getElementById("fullScreenModal");
+            const fullImg = document.getElementById("fullImg");
+            const clickedImgSrc = element.querySelector("img").src;
+            
+            modal.style.display = "flex";
+            fullImg.src = clickedImgSrc;
+        }
+
+        function closeFull() {
+            document.getElementById("fullScreenModal").style.display = "none";
+        }
     </script>
 
 </body>
