@@ -19,48 +19,48 @@ body {
     padding: 40px;
 }
 
-/* Окно трекера */
+/* 1. ЭТО КОНТЕЙНЕР ДЛЯ ВСЕГО ЛИЦА. 
+   Задай здесь точные размеры твоего face.png, какие тебе нужны на сайте */
 .eye-tracker {
     position: relative;
-    width: 400px;  
-    height: 400px; 
-    
-    /* ХИТРОСТЬ: Делаем белый центр для глаз, но оставляем прозрачные/черные углы */
-    background: radial-gradient(circle, #7c7c7c 60%, rgba(0,0,0,0) 65%);
-    background-color: #000000;
-    
-    border: 1px solid #111111;
-    overflow: hidden;
-    z-index: 5;
-    border-radius: 12px; 
-    width: 100px;  /* Уменьши до нужного размера, например 100px */
-    height: 100px;
+    width: 300px;  /* Ширина лица на экране */
+    height: 300px; /* Высота лица на экране */
 }
 
-/* Лицо (Слой сверху) */
+/* 2. ЭТО ТВОЕ ЛИЦО. Оно просто встает поверх всего контейнера */
 .face {
     position: absolute;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    object-fit: cover; 
-    z-index: 2; 
-    pointer-events: none;
+    z-index: 2; /* Лицо СВЕРХУ */
 }
 
-/* Зрачки (Слой снизу) */
+/* 3. А ЭТО БЕЛАЯ ПОДЛОЖКА (КРУГ).
+   Она центрируется внутри лица, и её размер можно менять как хочешь! */
+.eye-tracker::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Белый цвет */
+    border-radius: 50%;       /* Делает круглым */
+    z-index: 0;                /* Уходит на самый задний план, под зрачки */
+    
+    /* ИЗМЕНЯЙ ЭТИ ДВА ЧИСЛА, ЧТОБЫ УМЕНЬШИТЬ ИЛИ УВЕЛИЧИТЬ БЕЛЫЙ КРУГ */
+    width: 80px;   /* Сделай меньше или больше, лицо от этого НЕ изменится */
+    height: 80px;  /* Должно быть таким же, как width */
+}
+
+/* 4. ЗРАЧКИ */
 .eyes {
     position: absolute;
-    top: 50%; 
-    left: 50%; 
-    width: 100%; 
-    height: 100%;
-    object-fit: cover; 
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    transition: transform 0.05s ease-out; /* Чуть ускорил отзывчивость */
-    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    z-index: 1; /* Зрачки между белым кругом и лицом */
+    transition: transform 0.1s ease-out;
 }
 
 /* Меню по углам */
