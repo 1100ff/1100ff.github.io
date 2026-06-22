@@ -1,86 +1,51 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1100ff / архив</title>
+    <link rel="stylesheet" href="main_style.css">
+</head>
+<body>
 
-body {
-    background-color: #000000;
-    font-family: Arial, Helvetica, sans-serif; /* Вот этот плоский, простой шрифт */
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    <div class="center-container">
+        <a href="gallery.html" class="corner-menu top-left">gallery</a>
+        <a href="me.html" class="corner-menu top-right">me</a>
+        <a href="journal.html" class="corner-menu bottom-left">journal</a>
+        <a href="#secret" class="corner-menu bottom-right">???</a>
 
-.center-container {
-    position: relative;
-    padding: 40px; /* Отступ кнопок от рамки */
-}
+        <div class="eye-tracker" id="tracker">
+            <img src="eyes.png" alt="" class="eyes" id="eyes">
+            <img src="face.png" alt="" class="face">
+        </div>
+    </div>
 
-.eye-tracker {
-    position: relative;
-    width: 450px;  
-    height: 280px; 
-    background: #030303;
-    border: 1px solid #111111;
-    overflow: hidden;
-    z-index: 5;
-}
+    <script>
+        const tracker = document.getElementById('tracker');
+        const eyes = document.getElementById('eyes');
 
-.face {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: 2; pointer-events: none;
-}
+        document.addEventListener('mousemove', (e) => {
+            if (!tracker || !eyes) return;
+            
+            const rect = tracker.getBoundingClientRect();
+            // Находим точный центр блока с лицом
+            const trackerX = rect.left + rect.width / 2;
+            const trackerY = rect.top + rect.height / 2;
+            
+            // Считаем угол направления мыши
+            const angle = Math.atan2(e.clientY - trackerY, e.clientX - trackerX);
+            
+            // Максимальный радиус движения зрачков (в пикселях). 
+            // Если зрачки уходят слишком далеко, уменьши это число (например, до 10)
+            const distance = 15; 
+            
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            // Двигаем зрачки относительно их центра
+            eyes.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+        });
+    </script>
 
-.eyes {
-    position: absolute;
-    top: 50%; left: 50%; width: 100%; height: 100%;
-    object-fit: cover; z-index: 1;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-out; pointer-events: none;
-}
-
-.corner-menu {
-    position: absolute;
-    color: #555555;
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-    z-index: 10;
-}
-
-.corner-menu:hover {
-    color: #ffffff;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
-}
-
-.top-left { top: 10px; left: 0; }
-.top-right { top: 10px; right: 0; }
-.bottom-left { bottom: 10px; left: 0; }
-.bottom-right { bottom: 10px; right: 0; }
-
-
-
-
-
-.eyes-bg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  
-    width: 80%; /* Пример, настрой под свою картинку */
-    height: auto; 
-    z-index: 1; /* Лежит поверх зрачков (у которых z-index: 1 в оригинале, поменяй их на 0) */
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-
-.eyes {
-    /* ... твои стили ... */
-    z-index: 0; /* Тепер зрачки ниже всех */
-}
+</body>
+</html>
