@@ -22,8 +22,8 @@ body {
 /* Окно трекера */
 .eye-tracker {
     position: relative;
-    width: 150px;  /* Сделали квадратным под пропорции твоего лица */
-    height: 150px; 
+    width: 400px;  
+    height: 400px; 
     
     /* ХИТРОСТЬ: Делаем белый центр для глаз, но оставляем прозрачные/черные углы */
     background: radial-gradient(circle, #7c7c7c 60%, rgba(0,0,0,0) 65%);
@@ -32,7 +32,9 @@ body {
     border: 1px solid #111111;
     overflow: hidden;
     z-index: 5;
-    border-radius: 12px; /* Немного скруглим края рамки */
+    border-radius: 12px; 
+    width: 100px;  /* Уменьши до нужного размера, например 100px */
+    height: 100px;
 }
 
 /* Лицо (Слой сверху) */
