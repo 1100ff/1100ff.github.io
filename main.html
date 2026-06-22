@@ -14,26 +14,35 @@
         <a href="journal.html" class="corner-menu bottom-left">journal</a>
         <a href="#secret" class="corner-menu bottom-right">???</a>
 
-      <div class="eye-tracker" id="tracker">
-    <img src="eyes.png" alt="" class="eyes" id="eyes">
-    
-    <img src="eyes_background.png" alt="" class="eyes-bg"> 
-    
-    <img src="face.png" alt="" class="face">
-</div>
+        <div class="eye-tracker" id="tracker">
+            <img src="eyes.png" alt="" class="eyes" id="eyes">
+            <img src="face.png" alt="" class="face">
+        </div>
+    </div>
+
     <script>
         const tracker = document.getElementById('tracker');
         const eyes = document.getElementById('eyes');
 
         document.addEventListener('mousemove', (e) => {
             if (!tracker || !eyes) return;
+            
             const rect = tracker.getBoundingClientRect();
+            // Находим точный центр блока с лицом
             const trackerX = rect.left + rect.width / 2;
             const trackerY = rect.top + rect.height / 2;
+            
+            // Считаем угол направления мыши
             const angle = Math.atan2(e.clientY - trackerY, e.clientX - trackerX);
-            const distance = 8; 
+            
+            // Максимальный радиус движения зрачков (в пикселях). 
+            // Если зрачки уходят слишком далеко, уменьши это число (например, до 10)
+            const distance = 15; 
+            
             const x = Math.cos(angle) * distance;
             const y = Math.sin(angle) * distance;
+            
+            // Двигаем зрачки относительно их центра
             eyes.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         });
     </script>
